@@ -96,3 +96,21 @@
 .auth-btn:active {
   transform: scale(0.97);
 }
+
+/* ─────────────────────────────────────────
+   6. ENLACES
+───────────────────────────────────────── */
+.auth-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.link {
+  color: #FF4B2B;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Auth.css';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -57,6 +58,10 @@ export default function Register() {
             onChange={(val) => setConfirmPassword(val)}
           />
           <Button type="submit" className="auth-btn">Registrarse</Button>
+          <p className="auth-link">
+            ¿Ya tienes cuenta?{" "}
+            <Link to="/" className="link"> Inicia sesión</Link>
+          </p>
         </form>
       </div>
     </div>

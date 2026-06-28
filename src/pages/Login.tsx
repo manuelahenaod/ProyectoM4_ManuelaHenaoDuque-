@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/Auth.css';
 import InputField from '../components/InputField';
-import Button from '../components/Button';
+import Button from '../components/Button'
+import { Link } from "react-router-dom";
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -36,6 +38,10 @@ export default function Login() {
           />
           <Button type="submit" className="auth-btn">Ingresar</Button>
         </form>
+        <p className="auth-link">
+          ¿No tienes cuenta?{" "}
+          <Link to="/register" className="link"> Regístrate</Link>
+        </p>
       </div>
     </div>
   );
