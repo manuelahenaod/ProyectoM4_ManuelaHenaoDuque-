@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────
+   1. PÁGINA COMPLETA — fondo y centrado
+───────────────────────────────────────── */
+.login-page {
+  background: #f6f5f7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   2. TARJETA — el rectángulo blanco central
+───────────────────────────────────────── */
+.login-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2),
+              0 10px 10px rgba(0, 0, 0, 0.15);
+  width: 420px;
+  max-width: 95vw;
+  padding: 48px 40px;
+}
+
+/* ─────────────────────────────────────────
+   3. TÍTULO
+───────────────────────────────────────── */
+.login-card h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* ─────────────────────────────────────────
+   4. GRUPOS de label + input
+───────────────────────────────────────── */
+.login-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.login-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666666;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.login-field input {
+  background-color: #eee;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 15px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: background-color 0.2s;
+}
+
+.login-field input:focus {
+  background-color: #e0e0e0;
+}
+
+/* ─────────────────────────────────────────
+   5. BOTÓN principal
+───────────────────────────────────────── */
+.login-btn {
+  width: 100%;
+  margin-top: 28px;
+  padding: 13px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 80ms ease-in;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+}
+
+.login-btn:active {
+  transform: scale(0.97);
+}
