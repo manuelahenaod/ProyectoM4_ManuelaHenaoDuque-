@@ -9,7 +9,7 @@ type Props = {
 
 export default function InputField({ id, label, type, value, onChange, placeholder }: Props) {
   return (
-    <div className="login-field">
+    <div className="auth-field">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}

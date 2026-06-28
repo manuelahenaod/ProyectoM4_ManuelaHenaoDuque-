@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import '../styles/Auth.css';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 
@@ -13,8 +13,8 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
+    <div className="auth-page">
+      <div className="auth-card">
         <h1>Iniciar Sesión</h1>
 
         <form onSubmit={handleSignIn}>
@@ -34,7 +34,7 @@ export default function Login() {
             value={password}
             onChange={(val) => setPassword(val)}
           />
-          <Button type="submit" className="login-btn">Ingresar</Button>
+          <Button type="submit" className="auth-btn">Ingresar</Button>
         </form>
       </div>
     </div>

@@ -3,7 +3,7 @@
 /* ─────────────────────────────────────────
    1. PÁGINA COMPLETA — fondo y centrado
 ───────────────────────────────────────── */
-.login-page {
+.auth-page {
   background: #f6f5f7;
   min-height: 100vh;
   display: flex;
@@ -15,7 +15,7 @@
 /* ─────────────────────────────────────────
    2. TARJETA — el rectángulo blanco central
 ───────────────────────────────────────── */
-.login-card {
+.auth-card {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2),
@@ -28,7 +28,7 @@
 /* ─────────────────────────────────────────
    3. TÍTULO
 ───────────────────────────────────────── */
-.login-card h1 {
+.auth-card h1 {
   font-size: 26px;
   font-weight: 800;
   color: #333333;
@@ -39,13 +39,13 @@
 /* ─────────────────────────────────────────
    4. GRUPOS de label + input
 ───────────────────────────────────────── */
-.login-field {
+.auth-field {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
 
-.login-field label {
+.auth-field label {
   font-size: 12px;
   font-weight: 600;
   color: #666666;
@@ -54,7 +54,7 @@
   margin-bottom: 6px;
 }
 
-.login-field input {
+.auth-field input {
   background-color: #eee;
   border: none;
   border-radius: 6px;
@@ -65,14 +65,14 @@
   transition: background-color 0.2s;
 }
 
-.login-field input:focus {
+.auth-field input:focus {
   background-color: #e0e0e0;
 }
 
 /* ─────────────────────────────────────────
    5. BOTÓN principal
 ───────────────────────────────────────── */
-.login-btn {
+.auth-btn {
   width: 100%;
   margin-top: 28px;
   padding: 13px;
@@ -89,10 +89,10 @@
   transition: opacity 0.2s, transform 80ms ease-in;
 }
 
-.login-btn:hover {
+.auth-btn:hover {
   opacity: 0.9;
 }
 
-.login-btn:active {
+.auth-btn:active {
   transform: scale(0.97);
 }
