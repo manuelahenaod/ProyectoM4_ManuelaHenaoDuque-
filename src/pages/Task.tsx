@@ -15,6 +15,8 @@ import type { Task, NewTask } from "../types/task";
 
 import { isSameDay } from "../utils/date";
 
+import {LuPin,LuCircleCheckBig, LuCalendarDays} from "react-icons/lu";
+
 import "../styles/Task.css";
 
 export default function Task() {
@@ -90,19 +92,19 @@ export default function Task() {
         <StatCard
           title="Pendientes"
           value={tasks.filter(task => !task.completed).length}
-          icon="📌"
+          icon={<LuPin />}
         />
 
         <StatCard
           title="Completadas"
           value={tasks.filter(task => task.completed).length}
-          icon="✅"
+          icon={<LuCircleCheckBig />}
         />
 
         <StatCard
           title="Vencen hoy"
           value={dueTodayTasks}
-          icon="📅"
+          icon={<LuCalendarDays />}
         />
 
       </section>

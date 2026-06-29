@@ -1,9 +1,11 @@
 import "../styles/StatCard.css";
+import type { ReactNode } from "react";
+
 type StatCardProps = {
-  title: string;
-  value: number;
-  icon: string;
-};
+    title: string;
+    value: number;
+    icon: ReactNode;
+}
 
 export default function StatCard({
   title,

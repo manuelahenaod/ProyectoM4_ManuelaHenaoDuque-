@@ -1,5 +1,8 @@
 import type { Task } from "../types/task";
 import "../styles/TaskCard.css";
+import { LuCalendarDays } from "react-icons/lu";
+import { LuPencil } from "react-icons/lu";
+import { LuTrash2 } from "react-icons/lu";
 
 type TaskCardProps = {
   task: Task;
@@ -39,20 +42,19 @@ export default function TaskCard({
         {task.description}
       </p>
 
-      <div className="task-footer">
-        <span>
-          📅 {task.dueDate.toLocaleDateString()}
-        </span>
+      <span className="task-date">
+        <LuCalendarDays />
+        {task.dueDate.toLocaleDateString()}
+      </span>
 
-        <div className="task-actions">
-          <button
-            title="Editar"
-            onClick={() => onEdit(task)}
-          >
-            ✏️
-          </button>
-          <button>🗑️</button>
-        </div>
+      <div className="task-footer">
+        <button
+          title="Editar"
+          onClick={() => onEdit(task)}
+        >
+        <LuPencil />
+        </button>
+        <button><LuTrash2 /></button>
       </div>
 
     </article>
