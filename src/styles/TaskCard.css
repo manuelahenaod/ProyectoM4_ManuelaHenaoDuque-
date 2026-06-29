@@ -1,0 +1,119 @@
+/* ==========================
+   Tarjeta
+========================== */
+
+.task-card {
+  background: var(--card-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 20px;
+
+  transition: var(--transition);
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ==========================
+   Header
+========================== */
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.task-header h3 {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* ==========================
+   Estado
+========================== */
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.pending {
+  background: #fff4d6;
+  color: #d48806;
+}
+
+.completed {
+  background: #dff7e4;
+  color: #2e7d32;
+}
+
+/* ==========================
+   Descripción
+========================== */
+
+.task-description {
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================
+   Footer
+========================== */
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-date {
+  color: var(--text-secondary);
+  font-size: .9rem;
+}
+
+/* ==========================
+   Acciones
+========================== */
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #f3f3f3;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+
+  font-size: 1rem;
+}
+
+.task-actions button:hover {
+  background: linear-gradient(
+    to right,
+    var(--primary),
+    var(--secondary)
+  );
+
+  color: white;
+}

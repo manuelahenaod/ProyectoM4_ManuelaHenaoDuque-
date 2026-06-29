@@ -1,0 +1,15 @@
+.task-list {
+  background: var(--card-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  padding: 24px;
+}
+
+.task-list h2 {
+  margin-bottom: 20px;
+
+  font-size: 1.4rem;
+
+  color: var(--text-primary);
+}

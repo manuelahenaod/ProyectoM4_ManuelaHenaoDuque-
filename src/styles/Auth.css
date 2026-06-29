@@ -1,116 +1,163 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+/* ==========================
+   Contenedor principal
+========================== */
 
-/* ─────────────────────────────────────────
-   1. PÁGINA COMPLETA — fondo y centrado
-───────────────────────────────────────── */
 .auth-page {
-  background: #f6f5f7;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  padding: 24px;
 }
 
-/* ─────────────────────────────────────────
-   2. TARJETA — el rectángulo blanco central
-───────────────────────────────────────── */
+/* ==========================
+   Tarjeta
+========================== */
+
 .auth-card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2),
-              0 10px 10px rgba(0, 0, 0, 0.15);
-  width: 420px;
-  max-width: 95vw;
+  width: 100%;
+  max-width: 420px;
+
+  background: var(--card-color);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
   padding: 48px 40px;
 }
 
-/* ─────────────────────────────────────────
-   3. TÍTULO
-───────────────────────────────────────── */
+/* ==========================
+   Título
+========================== */
+
 .auth-card h1 {
-  font-size: 26px;
-  font-weight: 800;
-  color: #333333;
   text-align: center;
-  margin-bottom: 8px;
+  font-size: 2rem;
+  color: var(--text-primary);
+
+  margin-bottom: 2rem;
 }
 
-/* ─────────────────────────────────────────
-   4. GRUPOS de label + input
-───────────────────────────────────────── */
+/* ==========================
+   Campos
+========================== */
+
 .auth-field {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+
+  margin-bottom: 1.2rem;
 }
 
 .auth-field label {
-  font-size: 12px;
+  margin-bottom: .4rem;
+
+  font-size: .75rem;
+
   font-weight: 600;
-  color: #666666;
-  letter-spacing: 0.8px;
+
+  color: var(--text-secondary);
+
+  letter-spacing: .8px;
+
   text-transform: uppercase;
-  margin-bottom: 6px;
 }
 
 .auth-field input {
-  background-color: #eee;
+  padding: .9rem 1rem;
+
   border: none;
+
   border-radius: 6px;
-  padding: 12px 15px;
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: background-color 0.2s;
+
+  background: #eeeeee;
+
+  transition: var(--transition);
 }
 
 .auth-field input:focus {
-  background-color: #e0e0e0;
+  outline: none;
+
+  background: #e4e4e4;
 }
 
-/* ─────────────────────────────────────────
-   5. BOTÓN principal
-───────────────────────────────────────── */
+/* ==========================
+   Botón
+========================== */
+
 .auth-btn {
   width: 100%;
-  margin-top: 28px;
-  padding: 13px;
+
+  margin-top: 1rem;
+
+  padding: .9rem;
+
   border: none;
-  border-radius: 25px;
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
-  color: #ffffff;
-  font-size: 13px;
+
+  border-radius: 30px;
+
+  background: linear-gradient(
+    to right,
+    var(--primary),
+    var(--secondary)
+  );
+
+  color: white;
+
   font-weight: 700;
-  font-family: inherit;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 80ms ease-in;
+
+  transition: var(--transition);
 }
 
 .auth-btn:hover {
-  opacity: 0.9;
+  opacity: .9;
 }
 
 .auth-btn:active {
-  transform: scale(0.97);
+  transform: scale(.98);
 }
 
-/* ─────────────────────────────────────────
-   6. ENLACES
-───────────────────────────────────────── */
+/* ==========================
+   Enlaces
+========================== */
+
 .auth-link {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.5rem;
+
+  text-align: center;
+
+  color: var(--text-secondary);
+
+  font-size: .9rem;
 }
 
 .link {
-  color: #FF4B2B;
-  text-decoration: none;
+  color: var(--primary);
+
+  font-weight: 600;
 }
 
 .link:hover {
   text-decoration: underline;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 480px) {
+
+  .auth-card {
+    padding: 32px 24px;
+  }
+
+  .auth-card h1 {
+    font-size: 1.7rem;
+  }
+
 }
