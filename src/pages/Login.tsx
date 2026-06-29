@@ -3,7 +3,9 @@ import '../styles/Auth.css';
 import InputField from '../components/InputField';
 import Button from '../components/Button'
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../features/auth/authService";
+import { loginUser, signInWithGoogle } from "../features/auth/authService";
+import { FcGoogle } from "react-icons/fc";
+
 
 
 export default function Login() {
@@ -26,12 +28,22 @@ export default function Login() {
   }
 };
 
+const handleGoogleSignIn = async () => {
+  try {
+    await signInWithGoogle();
+    navigate("/tasks");
+  } catch (error: any) {
+    console.error(error);
+    alert("Error al iniciar sesión con Google");
+  }
+};
+
   return (
     <div className="auth-page">
       <div className="auth-card">
         <h1>Iniciar Sesión</h1>
 
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleSignIn} autoComplete="off">
           <InputField
             id="email"
             label="Correo Electrónico"
@@ -39,6 +51,7 @@ export default function Login() {
             placeholder="tu@correo.com"
             value={email}
             onChange={(val) => setEmail(val)}
+            autoComplete="off"
           />
           <InputField
             id="password"
@@ -47,8 +60,20 @@ export default function Login() {
             placeholder="••••••••"
             value={password}
             onChange={(val) => setPassword(val)}
+            autoComplete="new-password"
           />
-          <Button type="submit" className="auth-btn">Ingresar</Button>
+          <Button type="submit" className="auth-btn">
+            Ingresar
+          </Button>
+
+          <Button
+            type="button"
+            className="google-btn"
+            onClick={handleGoogleSignIn}
+          >
+            <FcGoogle size={20} />
+            <span>Continuar con Google</span>
+          </Button>
         </form>
         <p className="auth-link">
           ¿No tienes cuenta?{" "}

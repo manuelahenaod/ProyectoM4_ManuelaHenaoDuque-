@@ -1,13 +1,22 @@
-type Props = {
+type ButtonProps = {
   children: React.ReactNode;
-  type?: 'submit' | 'button';
+  type?: "button" | "submit" | "reset";
   className?: string;
   onClick?: () => void;
 };
 
-export default function Button({ children, type = 'button', className = '', onClick }: Props) {
+export default function Button({
+  children,
+  type = "button",
+  className,
+  onClick,
+}: ButtonProps) {
   return (
-    <button type={type} className={className} onClick={onClick}>
+    <button
+      type={type}
+      className={className}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

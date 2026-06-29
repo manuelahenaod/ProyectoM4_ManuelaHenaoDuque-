@@ -122,6 +122,42 @@
   transform: scale(.98);
 }
 
+.google-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 25px;
+
+  color: #3c4043;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.google-btn:hover {
+  background: #f8f9fa;
+  border-color: #c7c7c7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn:active {
+  transform: scale(0.98);
+}
+
+.google-btn svg {
+  font-size: 22px;
+}
 /* ==========================
    Enlaces
 ========================== */

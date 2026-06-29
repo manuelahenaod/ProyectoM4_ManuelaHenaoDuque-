@@ -5,9 +5,10 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  autoComplete?: string;
 };
 
-export default function InputField({ id, label, type, value, onChange, placeholder }: Props) {
+export default function InputField({ id, label, type, value, onChange, placeholder, autoComplete }: Props) {
   return (
     <div className="auth-field">
       <label htmlFor={id}>{label}</label>
@@ -17,6 +18,7 @@ export default function InputField({ id, label, type, value, onChange, placehold
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         required
       />
     </div>

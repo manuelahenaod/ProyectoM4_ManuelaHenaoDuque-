@@ -3,7 +3,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
+
 
 import { auth } from "../../services/firebase";
 import type { LoginData, RegisterData } from "../../types/auth";
@@ -47,6 +50,20 @@ export async function loginUser({
 }
 
 /**
+ * Iniciar sesión con Google
+ */
+const googleProvider = new GoogleAuthProvider();
+
+export async function signInWithGoogle() {
+  const userCredential = await signInWithPopup(
+    auth,
+    googleProvider
+  );
+
+  return userCredential.user;
+}
+
+/**
  * Cerrar sesión
  */
 export async function logoutUser() {
@@ -59,3 +76,4 @@ export async function logoutUser() {
 export function getCurrentUser() {
   return auth.currentUser;
 }
+
