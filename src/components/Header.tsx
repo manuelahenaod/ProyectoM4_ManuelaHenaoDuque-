@@ -1,7 +1,16 @@
 import "../styles/Header.css";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../features/auth/authService";
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate("/");
+  };
+
   return (
     <header className="dashboard-header">
       <div className="header-left">
@@ -12,7 +21,7 @@ export default function Header() {
       <div className="header-right">
         <span className="welcome">Hola, Manuela</span>
 
-        <Button className="logout-btn">
+        <Button className="logout-btn" onClick={handleLogout}>
           Cerrar sesión
         </Button>
       </div>

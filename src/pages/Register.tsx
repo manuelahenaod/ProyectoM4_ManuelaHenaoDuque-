@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import '../styles/Auth.css';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../features/auth/authService";
+
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -10,14 +12,30 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-    alert(`Usuario registrado: ${name}`);
-  };
+  const navigate = useNavigate();
+
+  const handleRegister = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (password !== confirmPassword) {
+    alert("Las contraseñas no coinciden");
+    return;
+  }
+
+  try {
+    await registerUser({
+      name,
+      email,
+      password,
+    });
+
+    alert("Usuario registrado correctamente");
+
+    navigate("/");
+  } catch (error: any) {
+    alert(error.message);
+  }
+};
 
   return (
     <div className="auth-page">

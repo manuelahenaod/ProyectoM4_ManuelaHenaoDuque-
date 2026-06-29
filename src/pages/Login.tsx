@@ -2,17 +2,29 @@ import React, { useState } from 'react';
 import '../styles/Auth.css';
 import InputField from '../components/InputField';
 import Button from '../components/Button'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../features/auth/authService";
 
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSignIn = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Iniciando sesión con: ${email}`);
-  };
+  const handleSignIn = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await loginUser({
+      email,
+      password,
+    });
+
+    navigate("/tasks");
+  } catch (error: any) {
+    alert("Correo o contraseña incorrectos");
+  }
+};
 
   return (
     <div className="auth-page">
