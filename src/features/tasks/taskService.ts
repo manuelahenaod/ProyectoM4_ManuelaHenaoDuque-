@@ -1,6 +1,7 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where, doc, updateDoc} from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { type NewTask, type Task } from "../../types/task";
+
 
 export async function createTask(task: NewTask) {
   try {
@@ -44,8 +45,19 @@ export async function getTasks(userId: string): Promise<Task[]> {
   }
 }
 
-export async function updateTask() {
+export async function updateTask(
+  id: string,
+  updatedTask: Partial<Task>
+) {
+  try {
+    const taskRef = doc(db, "tasks", id);
 
+    await updateDoc(taskRef, updatedTask);
+
+  } catch (error) {
+    console.error("Error actualizando la tarea:", error);
+    throw error;
+  }
 }
 
 export async function deleteTask() {

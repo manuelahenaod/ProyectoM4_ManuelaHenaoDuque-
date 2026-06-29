@@ -1,38 +1,60 @@
+import type { Task } from "../types/task";
 import "../styles/TaskCard.css";
 
 type TaskCardProps = {
-  title: string;
-  description: string;
-  dueDate: string;
-  completed: boolean;
+  task: Task;
+  onToggle: (id: string, completed: boolean) => void;
+  onEdit: (task: Task) => void;
 };
 
 export default function TaskCard({
-  title,
-  description,
-  dueDate,
-  completed,
+  task,
+  onToggle,
+  onEdit,
 }: TaskCardProps) {
   return (
     <article className="task-card">
-      <div className="task-header">
-        <h3>{title}</h3>
 
-        <span className={`status ${completed ? "completed" : "pending"}`}>
-          {completed ? "Completada" : "Pendiente"}
+      <div className="task-header">
+
+        <div className="task-title">
+          <input
+            type="checkbox"
+            checked={task.completed}
+            onChange={() =>
+              onToggle(task.id, task.completed)
+            }
+          />
+
+          <h3>{task.title}</h3>
+        </div>
+
+        <span className={`status ${task.completed ? "completed" : "pending"}`}>
+          {task.completed ? "Completada" : "Pendiente"}
         </span>
+
       </div>
 
-      <p className="task-description">{description}</p>
+      <p className="task-description">
+        {task.description}
+      </p>
 
       <div className="task-footer">
-        <span className="task-date">📅 {dueDate}</span>
+        <span>
+          📅 {task.dueDate.toLocaleDateString()}
+        </span>
 
         <div className="task-actions">
-          <button title="Editar">✏️</button>
-          <button title="Eliminar">🗑️</button>
+          <button
+            title="Editar"
+            onClick={() => onEdit(task)}
+          >
+            ✏️
+          </button>
+          <button>🗑️</button>
         </div>
       </div>
+
     </article>
   );
 }

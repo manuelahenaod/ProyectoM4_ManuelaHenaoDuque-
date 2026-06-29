@@ -1,39 +1,80 @@
+import { useState } from "react";
+
 import Header from "../components/Header";
 import StatCard from "../components/StatCard";
 import TaskList from "../components/TaskList";
 import FloatingButton from "../components/FloatingButton";
 import TaskCalendar from "../components/Calendar";
+import TaskModal from "../components/TaskModal";
+import TaskForm from "../components/TaskForm";
+
 import { useAuth } from "../hooks/useAuth";
-import "../styles/Task.css";
 import { useTasks } from "../hooks/useTasks";
 
+import type { Task, NewTask } from "../types/task";
+
+import { isSameDay } from "../utils/date";
+
+import "../styles/Task.css";
+
 export default function Task() {
-
   const { user } = useAuth();
-  const { tasks, loading, createNewTask } = useTasks();
 
-  const dueTodayTasks = tasks.filter((task) => {
-  const dueDate = task.dueDate;
-  const today = new Date();
-    return (
-      dueDate.getDate() === today.getDate() &&
-      dueDate.getMonth() === today.getMonth() &&
-      dueDate.getFullYear() === today.getFullYear()
-    );
-  }).length;
+  const {
+    tasks,
+    loading,
+    createNewTask,
+    updateTask,
+  } = useTasks();
 
-  async function handleCreateTask() {
-    if (!user) return;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
+  const dueTodayTasks = tasks.filter((task) =>
+    isSameDay(task.dueDate, new Date())
+  ).length;
+
+  async function handleToggleTask(
+    id: string,
+    completed: boolean
+  ) {
+    await updateTask(id, {
+      completed: !completed,
+    });
+  }
+
+  // Abrir modal para crear
+  function handleCreate() {
+    setSelectedTask(null);
+    setIsModalOpen(true);
+  }
+
+  // Abrir modal para editar
+  function handleEdit(task: Task) {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  }
+
+  async function handleSubmit(task: NewTask) {
     try {
-      await createNewTask({
-        title: "hola, soy un ejemplo",
-        description: "hola, soy una descripcion de ejemplo",
-        completed: false,
-        dueDate: new Date(),
-        createdAt: new Date(),
-        userId: user.uid,
-      });
+      if (selectedTask) {
+        await updateTask(selectedTask.id, task);
+      } else {
+        await createNewTask({
+          ...task,
+          userId: user!.uid,
+          createdAt: new Date(),
+          completed: false,
+        });
+      }
+
+      handleCloseModal();
+
     } catch (error) {
       console.error(error);
     }
@@ -45,15 +86,16 @@ export default function Task() {
       <Header />
 
       <section className="stats-container">
+
         <StatCard
           title="Pendientes"
-          value={tasks.filter((task) => !task.completed).length}
+          value={tasks.filter(task => !task.completed).length}
           icon="📌"
         />
 
         <StatCard
           title="Completadas"
-          value={tasks.filter((task) => task.completed).length}
+          value={tasks.filter(task => task.completed).length}
           icon="✅"
         />
 
@@ -62,18 +104,38 @@ export default function Task() {
           value={dueTodayTasks}
           icon="📅"
         />
+
       </section>
 
       <section className="dashboard-content">
+
         {loading ? (
           <p>Cargando tareas...</p>
         ) : (
-          <TaskList tasks={tasks} />
+          <TaskList
+            tasks={tasks}
+            onToggle={handleToggleTask}
+            onEdit={handleEdit}
+          />
         )}
 
         <TaskCalendar />
+
       </section>
-      <FloatingButton onClick={handleCreateTask} />
+
+      <FloatingButton onClick={handleCreate} />
+
+      <TaskModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+      >
+        <TaskForm
+          initialTask={selectedTask ?? undefined}
+          onSubmit={handleSubmit}
+          onCancel={handleCloseModal}
+        />
+      </TaskModal>
+
     </main>
   );
 }

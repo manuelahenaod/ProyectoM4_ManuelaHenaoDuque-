@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
 import type { NewTask, Task } from "../types/task";
-import { createTask, getTasks } from "../features/tasks/taskService";
+import { createTask, getTasks, updateTask as updateTaskService } from "../features/tasks/taskService";
 import { useAuth } from "./useAuth";
+
 
 export function useTasks() {
   const { user } = useAuth();
@@ -35,11 +36,21 @@ export function useTasks() {
     await loadTasks();
   }
 
+  async function updateTask(
+    id: string,
+  updatedTask: Partial<Task>
+) {
+  await updateTaskService(id, updatedTask);
+
+  await loadTasks();
+}
+
   return {
     tasks,
     loading,
     error,
     loadTasks,
-    createNewTask
+    createNewTask,
+    updateTask, 
   };
 }
