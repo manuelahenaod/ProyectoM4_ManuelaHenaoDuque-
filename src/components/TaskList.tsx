@@ -1,40 +1,19 @@
-import TaskCard from "../components/TaskCard";
+import type { Task } from "../types/task";
+import TaskCard from "./TaskCard";
 
-const tasks = [
-  {
-    id: 1,
-    title: "Proyecto Henry",
-    description: "Terminar el Dashboard",
-    dueDate: "30 Jun",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Estudiar React",
-    description: "Repasar React Router",
-    dueDate: "01 Jul",
-    completed: true,
-  },
-  {
-    id: 3,
-    title: "Meal Prep",
-    description: "Preparar almuerzos de la semana",
-    dueDate: "02 Jul",
-    completed: false,
-  },
-];
+type TaskListProps = {
+  tasks: Task[];
+};
 
-export default function TaskList() {
+export default function TaskList({ tasks }: TaskListProps) {
   return (
     <section className="task-list">
-      <h2>Mis tareas</h2>
-
       {tasks.map((task) => (
         <TaskCard
           key={task.id}
           title={task.title}
           description={task.description}
-          dueDate={task.dueDate}
+          dueDate={task.dueDate.toLocaleDateString()}
           completed={task.completed}
         />
       ))}
