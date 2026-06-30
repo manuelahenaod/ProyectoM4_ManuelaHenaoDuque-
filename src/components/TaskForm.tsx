@@ -20,16 +20,19 @@ export default function TaskForm({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-
+  const [priority, setPriority] = useState<"baja" | "media" | "alta">("media");
+  
   useEffect(() => {
     if (initialTask) {
       setTitle(initialTask.title);
       setDescription(initialTask.description);
       setDueDate(initialTask.dueDate.toISOString().split("T")[0]);
+      setPriority(initialTask.priority || "media");
     } else {
       setTitle("");
       setDescription("");
-      setDueDate("");
+      setDueDate(new Date().toISOString().split("T")[0]);
+      setPriority("media");
     }
   }, [initialTask]);
 
@@ -43,6 +46,7 @@ export default function TaskForm({
       dueDate: parseLocalDate(dueDate),
       createdAt: initialTask?.createdAt ?? new Date(),
       userId: initialTask?.userId ?? "",
+      priority,
     });
   }
 
@@ -83,6 +87,23 @@ export default function TaskForm({
           onChange={(e) => setDueDate(e.target.value)}
           disabled={loading}
         />
+      </div>
+
+      <div className="form-group">
+        <label>Prioridad</label>
+        <div className="priority-selector">
+          {(["baja", "media", "alta"] as const).map((p) => (
+            <button
+              key={p}
+              type="button"
+              className={`priority-btn ${p} ${priority === p ? "active" : ""}`}
+              onClick={() => setPriority(p)}
+              disabled={loading}
+            >
+              {p.charAt(0).toUpperCase() + p.slice(1)}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="task-form-buttons">

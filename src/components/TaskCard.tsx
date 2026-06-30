@@ -34,9 +34,14 @@ export default function TaskCard({
           <h3>{task.title}</h3>
         </div>
 
-        <span className={`status ${task.completed ? "completed" : "pending"}`}>
-          {task.completed ? "Completada" : "Pendiente"}
-        </span>
+        <div className="task-badges">
+          <span className={`priority-badge ${task.priority || "media"}`}>
+            {task.priority || "media"}
+          </span>
+          <span className={`status ${task.completed ? "completed" : "pending"}`}>
+            {task.completed ? "Completada" : "Pendiente"}
+          </span>
+        </div>
 
       </div>
 

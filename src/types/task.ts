@@ -6,6 +6,7 @@ export interface Task {
   dueDate: Date;
   createdAt: Date;
   userId: string;
+  priority: "baja" | "media" | "alta";
 }
 
 export type NewTask = Omit<Task, "id">;

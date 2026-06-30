@@ -25,9 +25,9 @@ export async function getTasks(userId: string): Promise<Task[]> {
     const snapshot = await getDocs(q);
 
     const tasks: Task[] = snapshot.docs.map((doc) => {
-    const data = doc.data();
+      const data = doc.data();
 
-    return {
+      return {
         id: doc.id,
         title: data.title,
         description: data.description,
@@ -35,8 +35,9 @@ export async function getTasks(userId: string): Promise<Task[]> {
         dueDate: data.dueDate.toDate(),
         createdAt: data.createdAt.toDate(),
         userId: data.userId,
-    };
-});
+        priority: data.priority || "media",
+      };
+    });
 
     return tasks;
   } catch (error) {
