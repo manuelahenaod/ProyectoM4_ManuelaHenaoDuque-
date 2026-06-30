@@ -58,6 +58,20 @@
   color: white;
 }
 
+.has-task {
+  position: relative;
+}
+
+.has-task::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin: 2px auto 0;
+}
+
 .react-calendar__month-view__weekdays {
   text-transform: uppercase;
 

@@ -1,9 +1,7 @@
 .task-list {
-  background: var(--card-color);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .task-list h2 {

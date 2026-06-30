@@ -1,0 +1,75 @@
+/* ==========================
+   Filtros de estado
+========================== */
+
+.status-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-filter-btn {
+  border: 2px solid transparent;
+  padding: 6px 16px;
+
+  border-radius: 20px;
+
+  background: var(--card-color);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow);
+
+  font-weight: 500;
+  font-size: 0.875rem;
+
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.status-filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.status-filter-btn.active {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* ==========================
+   Estado vacío
+========================== */
+
+.tasks-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  padding: 48px 24px;
+
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.tasks-empty-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.tasks-empty p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ==========================
+   Cargando
+========================== */
+
+.tasks-loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Header from "../components/Header";
 import StatCard from "../components/StatCard";
-import TaskList from "../components/TaskList";
+import TaskFilter from "../components/TaskFilter";
 import FloatingButton from "../components/FloatingButton";
 import TaskCalendar from "../components/Calendar";
 import TaskModal from "../components/TaskModal";
@@ -35,6 +35,8 @@ export default function Task() {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "completed" | "overdue">("all");
 
   const dueTodayTasks = tasks.filter((task) =>
     isSameDay(task.dueDate, new Date())
@@ -109,6 +111,19 @@ function cancelDelete() {
   setTaskToDelete(null);
 }
 
+const now = new Date();
+
+const statusFiltered = tasks.filter((task) => {
+  if (statusFilter === "pending") return !task.completed;
+  if (statusFilter === "completed") return task.completed;
+  if (statusFilter === "overdue") return !task.completed && task.dueDate < now;
+  return true;
+});
+
+const filteredTasks = selectedDate
+  ? statusFiltered.filter((task) => isSameDay(task.dueDate, selectedDate))
+  : statusFiltered;
+
   return (
     <main className="dashboard">
 
@@ -138,18 +153,41 @@ function cancelDelete() {
 
       <section className="dashboard-content">
 
-        {loading ? (
-          <p>Cargando tareas...</p>
-        ) : (
-          <TaskList
-            tasks={tasks}
+        <div className="tasks-section">
+
+          {selectedDate && (
+            <div className="filter-info">
+              <span>
+                📅 Mostrando tareas del{" "}
+                {selectedDate.toLocaleDateString("es-CO")}
+              </span>
+
+              <button
+                className="clear-filter-btn"
+                onClick={() => setSelectedDate(null)}
+              >
+                Ver todas
+              </button>
+            </div>
+          )}
+
+          <TaskFilter
+            filteredTasks={filteredTasks}
+            statusFilter={statusFilter}
+            loading={loading}
+            onStatusChange={setStatusFilter}
             onToggle={handleToggleTask}
             onEdit={handleEdit}
             onDelete={handleDeleteTask}
           />
-        )}
 
-        <TaskCalendar />
+        </div>
+
+        <TaskCalendar
+          tasks={tasks}
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
 
       </section>
 
