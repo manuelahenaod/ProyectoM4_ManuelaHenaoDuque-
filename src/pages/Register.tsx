@@ -4,7 +4,7 @@ import InputField from '../components/InputField';
 import Button from '../components/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authService";
-
+import { useToast } from "../hooks/useToast";
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -13,29 +13,30 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
+  const { toast, handleError } = useToast();
 
   const handleRegister = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (password !== confirmPassword) {
-    alert("Las contraseñas no coinciden");
-    return;
-  }
+    if (password !== confirmPassword) {
+      toast("Las contraseñas no coinciden", "error");
+      return;
+    }
 
-  try {
-    await registerUser({
-      name,
-      email,
-      password,
-    });
+    try {
+      await registerUser({
+        name,
+        email,
+        password,
+      });
 
-    alert("Usuario registrado correctamente");
+      toast("¡Usuario registrado correctamente!", "success");
+      navigate("/");
+    } catch (error: any) {
+      handleError(error);
+    }
+  };
 
-    navigate("/");
-  } catch (error: any) {
-    alert(error.message);
-  }
-};
 
   return (
     <div className="auth-page">

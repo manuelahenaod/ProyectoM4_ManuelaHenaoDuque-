@@ -11,6 +11,7 @@ import ConfirmModal from "../components/ConfirmModal";
 
 import { useAuth } from "../hooks/useAuth";
 import { useTasks } from "../hooks/useTasks";
+import { useToast } from "../hooks/useToast";
 
 import type { Task, NewTask } from "../types/task";
 
@@ -22,6 +23,7 @@ import "../styles/Task.css";
 
 export default function Task() {
   const { user } = useAuth();
+  const { toast, handleError } = useToast();
 
   const {
     tasks,
@@ -46,9 +48,17 @@ export default function Task() {
     id: string,
     completed: boolean
   ) {
-    await updateTask(id, {
-      completed: !completed,
-    });
+    try {
+      await updateTask(id, {
+        completed: !completed,
+      });
+      toast(
+        !completed ? "Tarea completada 🎉" : "Tarea marcada como pendiente",
+        "success"
+      );
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   // Abrir modal para crear
@@ -72,6 +82,7 @@ export default function Task() {
     try {
       if (selectedTask) {
         await updateTask(selectedTask.id, task);
+        toast("Tarea actualizada correctamente", "success");
       } else {
         await createNewTask({
           ...task,
@@ -79,12 +90,13 @@ export default function Task() {
           createdAt: new Date(),
           completed: false,
         });
+        toast("Tarea creada correctamente", "success");
       }
 
       handleCloseModal();
 
     } catch (error) {
-      console.error(error);
+      handleError(error);
     }
 }
 
@@ -98,11 +110,12 @@ async function confirmDelete() {
 
   try {
     await removeTask(taskToDelete.id);
+    toast("Tarea eliminada correctamente", "success");
 
     setConfirmOpen(false);
     setTaskToDelete(null);
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 }
 

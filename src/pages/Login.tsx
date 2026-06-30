@@ -5,38 +5,38 @@ import Button from '../components/Button'
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser, signInWithGoogle } from "../features/auth/authService";
 import { FcGoogle } from "react-icons/fc";
-
-
+import { useToast } from "../hooks/useToast";
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { handleError } = useToast();
 
   const handleSignIn = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    await loginUser({
-      email,
-      password,
-    });
+    try {
+      await loginUser({
+        email,
+        password,
+      });
 
-    navigate("/tasks");
-  } catch (error: any) {
-    alert("Correo o contraseña incorrectos");
-  }
-};
+      navigate("/tasks");
+    } catch (error: any) {
+      handleError(error);
+    }
+  };
 
-const handleGoogleSignIn = async () => {
-  try {
-    await signInWithGoogle();
-    navigate("/tasks");
-  } catch (error: any) {
-    console.error(error);
-    alert("Error al iniciar sesión con Google");
-  }
-};
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/tasks");
+    } catch (error: any) {
+      handleError(error);
+    }
+  };
+
 
   return (
     <div className="auth-page">

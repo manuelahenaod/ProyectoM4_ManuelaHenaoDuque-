@@ -1,41 +1,44 @@
 import { useEffect, useState } from "react";
 import type { Task, NewTask } from "../types/task";
 import { parseLocalDate } from "../utils/date";
-import "../styles/TaskForm.css"
+import "../styles/TaskForm.css";
 import Button from "./Button";
 
 type TaskFormProps = {
   initialTask?: Task;
   onSubmit: (task: NewTask) => void;
   onCancel: () => void;
+  loading?: boolean;
 };
 
 export default function TaskForm({
   initialTask,
   onSubmit,
   onCancel,
+  loading = false,
 }: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
 
-  // Si estoy editando, lleno el formulario
   useEffect(() => {
-    if (!initialTask) return;
-
-    setTitle(initialTask.title);
-    setDescription(initialTask.description);
-    setDueDate(
-      initialTask.dueDate.toISOString().split("T")[0]
-    );
+    if (initialTask) {
+      setTitle(initialTask.title);
+      setDescription(initialTask.description);
+      setDueDate(initialTask.dueDate.toISOString().split("T")[0]);
+    } else {
+      setTitle("");
+      setDescription("");
+      setDueDate("");
+    }
   }, [initialTask]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     onSubmit({
-      title,
-      description,
+      title: title.trim(),
+      description: description.trim(),
       completed: initialTask?.completed ?? false,
       dueDate: parseLocalDate(dueDate),
       createdAt: initialTask?.createdAt ?? new Date(),
@@ -45,7 +48,6 @@ export default function TaskForm({
 
   return (
     <form onSubmit={handleSubmit} className="task-form">
-
       <h2>
         {initialTask ? "Editar tarea" : "Nueva tarea"}
       </h2>
@@ -58,6 +60,7 @@ export default function TaskForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          disabled={loading}
         />
       </div>
 
@@ -67,6 +70,7 @@ export default function TaskForm({
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          disabled={loading}
         />
       </div>
 
@@ -77,28 +81,32 @@ export default function TaskForm({
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
+          disabled={loading}
         />
       </div>
 
       <div className="task-form-buttons">
+        <Button
+          type="button"
+          className="cancel-btn"
+          onClick={onCancel}
+          disabled={loading}
+        >
+          Cancelar
+        </Button>
 
-<Button
-  type="button"
-  className="cancel-btn"
-  onClick={onCancel}
->
-  Cancelar
-</Button>
-
-<Button
-  type="submit"
-  className="save-btn"
->
-  {initialTask ? "Guardar cambios" : "Crear tarea"}
-</Button>
-
+        <Button
+          type="submit"
+          className="save-btn"
+          disabled={loading}
+        >
+          {loading
+            ? "Guardando..."
+            : initialTask
+            ? "Guardar cambios"
+            : "Crear tarea"}
+        </Button>
       </div>
-
     </form>
   );
 }
