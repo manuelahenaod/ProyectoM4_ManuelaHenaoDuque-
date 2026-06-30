@@ -32,18 +32,23 @@ export function useTasks() {
   }
 
   async function createNewTask(task: NewTask) {
-    await createTask(task);
-    await loadTasks();
+    const id = await createTask(task);
+    const addedTask: Task = {
+      ...task,
+      id,
+    };
+    setTasks((prev) => [...prev, addedTask]);
   }
 
   async function updateTask(
     id: string,
-  updatedTask: Partial<Task>
-) {
-  await updateTaskService(id, updatedTask);
-
-  await loadTasks();
-}
+    updatedTask: Partial<Task>
+  ) {
+    await updateTaskService(id, updatedTask);
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, ...updatedTask } : task))
+    );
+  }
 
 async function removeTask(id: string) {
   try {

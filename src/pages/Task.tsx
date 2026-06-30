@@ -39,6 +39,7 @@ export default function Task() {
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "completed" | "overdue">("all");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const dueTodayTasks = tasks.filter((task) =>
     isSameDay(task.dueDate, new Date())
@@ -80,6 +81,7 @@ export default function Task() {
 
   async function handleSubmit(task: NewTask) {
     try {
+      setIsSubmitting(true);
       if (selectedTask) {
         await updateTask(selectedTask.id, task);
         toast("Tarea actualizada correctamente", "success");
@@ -97,8 +99,10 @@ export default function Task() {
 
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsSubmitting(false);
     }
-}
+  }
 
 function handleDeleteTask(task: Task) {
   setTaskToDelete(task);
@@ -214,6 +218,7 @@ const filteredTasks = selectedDate
           initialTask={selectedTask ?? undefined}
           onSubmit={handleSubmit}
           onCancel={handleCloseModal}
+          loading={isSubmitting}
         />
       </TaskModal>
 
