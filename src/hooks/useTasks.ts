@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import type { NewTask, Task } from "../types/task";
-import { createTask, getTasks, updateTask as updateTaskService } from "../features/tasks/taskService";
+import { createTask, getTasks, updateTask as updateTaskService, deleteTask} from "../features/tasks/taskService";
 import { useAuth } from "./useAuth";
 
 
@@ -45,6 +45,18 @@ export function useTasks() {
   await loadTasks();
 }
 
+async function removeTask(id: string) {
+  try {
+    await deleteTask(id);
+
+    setTasks((prev) =>
+      prev.filter((task) => task.id !== id)
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
   return {
     tasks,
     loading,
@@ -52,5 +64,6 @@ export function useTasks() {
     loadTasks,
     createNewTask,
     updateTask, 
+    removeTask
   };
 }

@@ -8,12 +8,14 @@ type TaskCardProps = {
   task: Task;
   onToggle: (id: string, completed: boolean) => void;
   onEdit: (task: Task) => void;
+  onDelete: (task: Task) => void;
 };
 
 export default function TaskCard({
   task,
   onToggle,
   onEdit,
+  onDelete,
 }: TaskCardProps) {
   return (
     <article className="task-card">
@@ -54,7 +56,14 @@ export default function TaskCard({
         >
         <LuPencil />
         </button>
-        <button><LuTrash2 /></button>
+        
+        <button
+          title="Eliminar"
+          onClick={() => onDelete(task)}
+        >
+          <LuTrash2 />
+        </button>
+
       </div>
 
     </article>

@@ -1,0 +1,42 @@
+.confirm-modal{
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+
+    text-align:center;
+}
+
+.confirm-modal h2{
+    margin:0;
+    color:#2d2d2d;
+}
+
+.confirm-modal p{
+    margin:0;
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.confirm-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:1rem;
+}
+
+.delete-btn{
+    border:none;
+    padding:.9rem 1.5rem;
+
+    border-radius:12px;
+
+    background:#ef4444;
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}

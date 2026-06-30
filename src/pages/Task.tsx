@@ -7,6 +7,7 @@ import FloatingButton from "../components/FloatingButton";
 import TaskCalendar from "../components/Calendar";
 import TaskModal from "../components/TaskModal";
 import TaskForm from "../components/TaskForm";
+import ConfirmModal from "../components/ConfirmModal";
 
 import { useAuth } from "../hooks/useAuth";
 import { useTasks } from "../hooks/useTasks";
@@ -27,10 +28,13 @@ export default function Task() {
     loading,
     createNewTask,
     updateTask,
+    removeTask
   } = useTasks();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
   const dueTodayTasks = tasks.filter((task) =>
     isSameDay(task.dueDate, new Date())
@@ -80,7 +84,30 @@ export default function Task() {
     } catch (error) {
       console.error(error);
     }
+}
+
+function handleDeleteTask(task: Task) {
+  setTaskToDelete(task);
+  setConfirmOpen(true);
+}
+
+async function confirmDelete() {
+  if (!taskToDelete) return;
+
+  try {
+    await removeTask(taskToDelete.id);
+
+    setConfirmOpen(false);
+    setTaskToDelete(null);
+  } catch (error) {
+    console.error(error);
   }
+}
+
+function cancelDelete() {
+  setConfirmOpen(false);
+  setTaskToDelete(null);
+}
 
   return (
     <main className="dashboard">
@@ -118,6 +145,7 @@ export default function Task() {
             tasks={tasks}
             onToggle={handleToggleTask}
             onEdit={handleEdit}
+            onDelete={handleDeleteTask}
           />
         )}
 
@@ -137,6 +165,14 @@ export default function Task() {
           onCancel={handleCloseModal}
         />
       </TaskModal>
+
+      <ConfirmModal
+        open={confirmOpen}
+        title="Eliminar tarea"
+        message={`¿Seguro que deseas eliminar "${taskToDelete?.title}"? Esta acción no se puede deshacer.`}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
 
     </main>
   );

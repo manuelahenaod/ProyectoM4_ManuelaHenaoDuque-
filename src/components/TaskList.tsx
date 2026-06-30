@@ -6,12 +6,14 @@ type TaskListProps = {
   tasks: Task[];
   onToggle: (id: string, completed: boolean) => void;
   onEdit: (task: Task) => void;
+  onDelete: (task: Task) => void;
 };
 
 export default function TaskList({
   tasks,
   onToggle,
   onEdit,
+  onDelete,
 }: TaskListProps) {
   return (
     <section className="task-list">
@@ -25,6 +27,7 @@ export default function TaskList({
             task={task}
             onToggle={onToggle}
             onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))
       )}

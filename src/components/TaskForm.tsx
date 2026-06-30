@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Task, NewTask } from "../types/task";
+import { parseLocalDate } from "../utils/date";
 import "../styles/TaskForm.css"
 import Button from "./Button";
 
@@ -36,7 +37,7 @@ export default function TaskForm({
       title,
       description,
       completed: initialTask?.completed ?? false,
-      dueDate: new Date(dueDate),
+      dueDate: parseLocalDate(dueDate),
       createdAt: initialTask?.createdAt ?? new Date(),
       userId: initialTask?.userId ?? "",
     });
