@@ -20,6 +20,9 @@ import { isSameDay } from "../utils/date";
 import {LuPin,LuCircleCheckBig, LuCalendarDays} from "react-icons/lu";
 
 import "../styles/Task.css";
+import EmailButton from "../components/EmailButton";
+import { sendSummaryEmail } from "../features/email/emailService";
+import "../styles/EmailButton.css";
 
 export default function Task() {
   const { user } = useAuth();
@@ -40,6 +43,7 @@ export default function Task() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "completed" | "overdue">("all");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   const dueTodayTasks = tasks.filter((task) =>
     isSameDay(task.dueDate, new Date())
@@ -59,6 +63,24 @@ export default function Task() {
       );
     } catch (error) {
       handleError(error);
+    }
+  }
+
+  async function handleSendEmail() {
+    if (!user) return;
+    try {
+      setIsSendingEmail(true);
+      await sendSummaryEmail({
+        email: user.email || "",
+        name: user.displayName || user.email?.split("@")[0] || "Usuario",
+        tasks: tasks,
+      });
+      toast("Resumen enviado a tu correo 📧", "success");
+    } catch (error: any) {
+      const detail = error instanceof Error ? error.message : "Ocurrió un error inesperado.";
+      toast(`Error al enviar el correo: ${detail}`, "error");
+    } finally {
+      setIsSendingEmail(false);
     }
   }
 
@@ -171,6 +193,11 @@ const filteredTasks = selectedDate
       <section className="dashboard-content">
 
         <div className="tasks-section">
+          
+          <div className="tasks-header-actions">
+            <h2>Mis Tareas</h2>
+            <EmailButton onClick={handleSendEmail} disabled={isSendingEmail} />
+          </div>
 
           {selectedDate && (
             <div className="filter-info">
