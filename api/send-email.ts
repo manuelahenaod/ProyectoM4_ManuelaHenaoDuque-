@@ -1,5 +1,5 @@
-import { sendEmail } from "../functions/email/sendEmail";
-import { buildEmailTemplate } from "../functions/email/emailTemplate";
+import { sendEmail } from "./email/sendEmail";
+import { buildEmailTemplate } from "./email/emailTemplate";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -14,7 +14,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const htmlContent = buildEmailTemplate({ name, tasks });
-    
+
     await sendEmail({
       to: email,
       subject: `Resumen de Tareas de ${name} 🚀`,
@@ -24,7 +24,7 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({ success: true, message: "Resumen enviado con éxito" });
   } catch (error: any) {
     console.error("Error al enviar email:", error);
-    
+
 
     return res.status(500).json({
       success: false,
