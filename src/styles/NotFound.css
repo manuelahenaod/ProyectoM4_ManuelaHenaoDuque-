@@ -1,0 +1,159 @@
+/* ==========================
+   Contenedor principal 404
+========================== */
+
+.notfound-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg-color);
+}
+
+/* ==========================
+   Tarjeta 404
+========================== */
+
+.notfound-content {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 48px 40px;
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ==========================
+   Elementos Visuales
+========================== */
+
+.notfound-emoji {
+  font-size: 4.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: bounce 2s ease infinite;
+}
+
+.notfound-title {
+  font-size: 5rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.notfound-subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.notfound-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* ==========================
+   Acciones / Botones
+========================== */
+
+.notfound-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.notfound-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: #eeeeee;
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: #e4e4e4;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* ==========================
+   Animaciones
+========================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 480px) {
+  .notfound-content {
+    padding: 32px 24px;
+  }
+  
+  .notfound-title {
+    font-size: 4rem;
+  }
+  
+  .notfound-subtitle {
+    font-size: 1.3rem;
+  }
+}
