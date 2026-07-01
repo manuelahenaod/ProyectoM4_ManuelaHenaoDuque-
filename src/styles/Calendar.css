@@ -79,3 +79,26 @@
 
   color: var(--text-secondary);
 }
+
+/* ==========================
+   Responsive / Mobile First
+========================== */
+@media (max-width: 480px) {
+  .calendar-card {
+    padding: 16px 12px;
+  }
+  
+  .calendar-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 0.7rem;
+  }
+
+  .react-calendar__tile {
+    padding: 8px 4px;
+    font-size: 0.85rem;
+  }
+}
