@@ -1,4 +1,5 @@
-import { sendEmail, buildEmailTemplate } from "../functions/email/index.js";
+import { sendEmail } from "../functions/email/sendEmail";
+import { buildEmailTemplate } from "../functions/email/emailTemplate";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
