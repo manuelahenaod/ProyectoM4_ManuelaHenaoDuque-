@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type { Task, NewTask } from "../types/task";
 import { getTodayLocal, parseLocalDate } from "../utils/date";
+import { capitalizeFirstLetter } from "../utils/text";
 import "../styles/TaskForm.css";
 import Button from "./Button";
+
 
 type TaskFormProps = {
   initialTask?: Task;
@@ -40,7 +42,7 @@ export default function TaskForm({
     e.preventDefault();
 
     onSubmit({
-      title: title.trim(),
+      title: capitalizeFirstLetter(title),
       description: description.trim(),
       completed: initialTask?.completed ?? false,
       dueDate: parseLocalDate(dueDate),
