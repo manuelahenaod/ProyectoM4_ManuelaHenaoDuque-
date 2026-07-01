@@ -24,10 +24,12 @@
    Header
 ========================== */
 
+
 .task-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 1rem;
 }
 
 .task-header h3 {
@@ -149,18 +151,24 @@
   color: white;
 }
 
+
+
 .task-title {
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
+  align-items: flex-start;
+  gap: 0.75rem;
 
-.task-title h3 {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+}
+
+
+
+.task-title h3 {
+  margin: 0;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-size: medium;
 }
 
@@ -171,10 +179,19 @@
   accent-color: var(--primary);
 }
 
+
+
 .task-badges {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  display: grid;
+  gap: .5rem;
+  justify-items: stretch;
+}
+
+.status,
+.priority-badge {
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .priority-badge {
