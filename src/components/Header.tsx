@@ -14,14 +14,15 @@ export default function Header() {
     navigate("/");
   };
 
-  // Obtiene el nombre a mostrar: displayName, la primera parte del email, o "Usuario"
-  const displayName = user?.displayName || user?.email?.split("@")[0] || "Usuario";
+  // Obtiene el nombre a mostrar: primer nombre de displayName, la primera parte del email, o "Usuario"
+  const rawName = user?.displayName || user?.email?.split("@")[0] || "Usuario";
+  const displayName = rawName.trim().split(" ")[0];
 
   return (
     <header className="dashboard-header">
       <div className="header-left">
         <h1>MateCode</h1>
-        <p>Organiza tu día de forma inteligente</p>
+        <p>Organiza tus tareas de forma inteligente</p>
       </div>
 
       <div className="header-right">

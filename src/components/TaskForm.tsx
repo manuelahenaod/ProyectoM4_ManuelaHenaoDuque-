@@ -57,9 +57,10 @@ export default function TaskForm({
       </h2>
 
       <div className="form-group">
-        <label>Título</label>
+        <label htmlFor="title">Título</label>
 
         <input
+          id="title"
           type="text"
           value={title}
           maxLength={40}
@@ -70,9 +71,10 @@ export default function TaskForm({
       </div>
 
       <div className="form-group">
-        <label>Descripción</label>
+        <label htmlFor="description">Descripción</label>
 
         <textarea
+          id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={loading}
@@ -80,9 +82,10 @@ export default function TaskForm({
       </div>
 
       <div className="form-group">
-        <label>Fecha límite</label>
+        <label htmlFor="dueDate">Fecha límite</label>
 
         <input
+          id="dueDate"
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
