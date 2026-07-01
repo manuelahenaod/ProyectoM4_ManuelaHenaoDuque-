@@ -1,6 +1,7 @@
 import type { Task } from "../types/task";
 import TaskList from "./TaskList";
 import "../styles/TaskFilter.css";
+import { LuClipboardList, LuPartyPopper, LuDumbbell, LuCircleCheck, LuLoader } from "react-icons/lu";
 
 type StatusFilter = "all" | "pending" | "completed" | "overdue";
 
@@ -21,11 +22,11 @@ const FILTERS: { key: StatusFilter; label: string }[] = [
   { key: "overdue",   label: "Vencidas" },
 ];
 
-const EMPTY_MESSAGES: Record<StatusFilter, { icon: string; text: string }> = {
-  all:       { icon: "📋", text: "Aún no tienes tareas. ¡Crea una!" },
-  pending:   { icon: "🎉", text: "No tienes tareas pendientes" },
-  completed: { icon: "💪", text: "Aún no has completado ninguna tarea" },
-  overdue:   { icon: "✅", text: "No tienes tareas vencidas" },
+const EMPTY_MESSAGES: Record<StatusFilter, { icon: React.ReactNode; text: string }> = {
+  all:       { icon: <LuClipboardList size={40} />, text: "Aún no tienes tareas. ¡Crea una!" },
+  pending:   { icon: <LuPartyPopper size={40} />,  text: "No tienes tareas pendientes" },
+  completed: { icon: <LuDumbbell size={40} />,     text: "Aún no has completado ninguna tarea" },
+  overdue:   { icon: <LuCircleCheck size={40} />,  text: "No tienes tareas vencidas" },
 };
 
 export default function TaskFilter({
@@ -54,7 +55,10 @@ export default function TaskFilter({
       </div>
 
       {loading ? (
-        <p className="tasks-loading">Cargando tareas...</p>
+        <div className="tasks-loading">
+          <LuLoader className="spin" size={24} />
+          <span>Cargando tareas...</span>
+        </div>
       ) : filteredTasks.length === 0 ? (
         <div className="tasks-empty">
           <span className="tasks-empty-icon">{empty.icon}</span>

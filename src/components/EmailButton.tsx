@@ -1,4 +1,4 @@
-import { LuMail } from "react-icons/lu";
+import { LuMail, LuLoader } from "react-icons/lu";
 
 type EmailButtonProps = {
   onClick: () => void;
@@ -11,12 +11,12 @@ export default function EmailButton({
 }: EmailButtonProps) {
   return (
     <button
-      className="email-button"
+      className={`email-button${disabled ? " sending" : ""}`}
       onClick={onClick}
       disabled={disabled}
     >
-      <LuMail />
-      <span>Enviar resumen</span>
+      {disabled ? <LuLoader className="spin" size={16} /> : <LuMail size={16} />}
+      <span>{disabled ? "Enviando..." : "Enviar resumen"}</span>
     </button>
   );
 }

@@ -10,16 +10,22 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const navigate = useNavigate();
   const { toast, handleError } = useToast();
 
+  const confirmPasswordError = confirmPassword && confirmPassword !== password ? "Las contraseñas no coinciden." : "";
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitted(true);
 
-    if (password !== confirmPassword) {
-      toast("Las contraseñas no coinciden", "error");
+    // Basic validation before calling API //
+    if (!name || !email || password.length < 6 || password !== confirmPassword) {
       return;
     }
 
@@ -36,7 +42,6 @@ export default function Register() {
       handleError(error);
     }
   };
-
 
   return (
     <div className="auth-page">
@@ -67,6 +72,8 @@ export default function Register() {
             placeholder="••••••••"
             value={password}
             onChange={(val) => setPassword(val)}
+            onBlur={() => setPasswordTouched(true)}
+            errorMessage={passwordTouched && password.length > 0 && password.length < 6 ? "La contraseña debe tener al menos 6 caracteres." : ""}
           />
           <InputField
             id="confirmPassword"
@@ -74,7 +81,9 @@ export default function Register() {
             type="password"
             placeholder="••••••••"
             value={confirmPassword}
-            onChange={(val) => setConfirmPassword(val)}
+            onChange={setConfirmPassword}
+            onBlur={() => setConfirmPasswordTouched(true)}
+            errorMessage={(confirmPasswordTouched || submitted) ? confirmPasswordError : ""}
           />
           <Button type="submit" className="auth-btn">Registrarse</Button>
           <p className="auth-link">

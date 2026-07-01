@@ -17,7 +17,7 @@ import type { Task, NewTask } from "../types/task";
 
 import { isSameDay } from "../utils/date";
 
-import {LuPin,LuCircleCheckBig, LuCalendarDays} from "react-icons/lu";
+import { LuPin, LuCircleCheckBig, LuCalendarDays, LuX } from "react-icons/lu";
 
 import "../styles/Task.css";
 import EmailButton from "../components/EmailButton";
@@ -202,7 +202,8 @@ const filteredTasks = selectedDate
           {selectedDate && (
             <div className="filter-info">
               <span>
-                📅 Mostrando tareas del{" "}
+                <LuCalendarDays size={15} />
+                {" "}Mostrando tareas del{" "}
                 {selectedDate.toLocaleDateString("es-CO")}
               </span>
 
@@ -210,6 +211,7 @@ const filteredTasks = selectedDate
                 className="clear-filter-btn"
                 onClick={() => setSelectedDate(null)}
               >
+                <LuX size={14} />
                 Ver todas
               </button>
             </div>

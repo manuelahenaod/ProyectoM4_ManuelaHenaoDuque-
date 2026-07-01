@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Task, NewTask } from "../types/task";
-import { parseLocalDate } from "../utils/date";
+import { getTodayLocal, parseLocalDate } from "../utils/date";
 import "../styles/TaskForm.css";
 import Button from "./Button";
 
@@ -31,7 +31,7 @@ export default function TaskForm({
     } else {
       setTitle("");
       setDescription("");
-      setDueDate(new Date().toISOString().split("T")[0]);
+      setDueDate(getTodayLocal());
       setPriority("media");
     }
   }, [initialTask]);
@@ -62,6 +62,7 @@ export default function TaskForm({
         <input
           type="text"
           value={title}
+          maxLength={40}
           onChange={(e) => setTitle(e.target.value)}
           required
           disabled={loading}

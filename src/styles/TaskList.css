@@ -1,13 +1,51 @@
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
 }
 
 .task-list h2 {
   margin-bottom: 20px;
-
   font-size: 1.4rem;
-
   color: var(--text-primary);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--card-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.page-btn svg {
+  font-size: 1.2rem;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: var(--primary);
+  color: white;
+}
+
+.page-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: var(--text-secondary);
+  font-size: .9rem;
 }

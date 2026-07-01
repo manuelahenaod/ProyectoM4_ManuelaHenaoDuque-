@@ -11,3 +11,13 @@ export function isSameDay(date1: Date, date2: Date): boolean {
     date1.getFullYear() === date2.getFullYear()
   );
 }
+
+export function getTodayLocal(): string {
+  const today = new Date();
+  
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}

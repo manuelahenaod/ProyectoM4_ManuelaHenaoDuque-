@@ -28,8 +28,13 @@
 .dashboard-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 10px;
   align-items: start;
+}
+
+.tasks-section,
+.calendar-section {
+  min-width: 0;
 }
 
 /* ==========================
@@ -57,18 +62,23 @@
   font-size: 0.95rem;
 }
 
+.filter-info > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .clear-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   border: none;
   padding: 6px 14px;
-
   border-radius: 20px;
-
   background: linear-gradient(to right, var(--primary), var(--secondary));
   color: white;
-
   font-weight: 600;
   font-size: 0.85rem;
-
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s;
 }

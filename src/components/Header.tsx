@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../features/auth/authService";
 import { useAuth } from "../hooks/useAuth";
+import { LuUser, LuLogOut } from "react-icons/lu";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -24,10 +25,14 @@ export default function Header() {
       </div>
 
       <div className="header-right">
-        <span className="welcome">Hola, {displayName}</span>
+        <span className="welcome">
+          <LuUser size={17} />
+          Hola, {displayName}
+        </span>
 
         <Button className="logout-btn" onClick={handleLogout}>
-          Cerrar sesión
+          <LuLogOut size={16} />
+          <span>Cerrar Sesión</span>
         </Button>
       </div>
     </header>

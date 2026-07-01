@@ -24,19 +24,10 @@ export default async function handler(req: any, res: any) {
   } catch (error: any) {
     console.error("Error al enviar email:", error);
     
-    let userMessage = error.message || "Error interno del servidor";
-    
-    if (error.name === "MessageRejected" || userMessage.includes("not verified")) {
-      userMessage = "El correo de origen o de destino no está verificado en AWS SES. Verifica tu configuración.";
-    } else if (error.name === "InvalidParameterValue") {
-      userMessage = "Uno de los parámetros de envío de correo no es válido o está mal estructurado.";
-    } else if (error.name === "AccessDenied" || error.name === "InvalidSignatureException") {
-      userMessage = "Credenciales incorrectas de AWS. No tienes permisos para enviar correos.";
-    }
 
     return res.status(500).json({
       success: false,
-      message: userMessage,
+      message: "No se pudo enviar resumen",
     });
   }
 }
