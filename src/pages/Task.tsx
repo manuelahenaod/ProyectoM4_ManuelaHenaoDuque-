@@ -126,42 +126,43 @@ export default function Task() {
     }
   }
 
-function handleDeleteTask(task: Task) {
-  setTaskToDelete(task);
-  setConfirmOpen(true);
-}
+  function handleDeleteTask(task: Task) {
+    setTaskToDelete(task);
+    setConfirmOpen(true);
+  }
 
-async function confirmDelete() {
-  if (!taskToDelete) return;
+  async function confirmDelete() {
+    if (!taskToDelete) return;
 
-  try {
-    await removeTask(taskToDelete.id);
-    toast("Tarea eliminada correctamente", "success");
+    try {
+      await removeTask(taskToDelete.id);
+      toast("Tarea eliminada correctamente", "success");
 
+      setConfirmOpen(false);
+      setTaskToDelete(null);
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  function cancelDelete() {
     setConfirmOpen(false);
     setTaskToDelete(null);
-  } catch (error) {
-    handleError(error);
   }
-}
 
-function cancelDelete() {
-  setConfirmOpen(false);
-  setTaskToDelete(null);
-}
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-const now = new Date();
+  const statusFiltered = tasks.filter((task) => {
+    if (statusFilter === "pending") return !task.completed;
+    if (statusFilter === "completed") return task.completed;
+    if (statusFilter === "overdue") return !task.completed && task.dueDate < startOfToday;
+    return true;
+  });
 
-const statusFiltered = tasks.filter((task) => {
-  if (statusFilter === "pending") return !task.completed;
-  if (statusFilter === "completed") return task.completed;
-  if (statusFilter === "overdue") return !task.completed && task.dueDate < now;
-  return true;
-});
-
-const filteredTasks = selectedDate
-  ? statusFiltered.filter((task) => isSameDay(task.dueDate, selectedDate))
-  : statusFiltered;
+  const filteredTasks = selectedDate
+    ? statusFiltered.filter((task) => isSameDay(task.dueDate, selectedDate))
+    : statusFiltered;
 
   return (
     <main className="dashboard">
@@ -193,7 +194,7 @@ const filteredTasks = selectedDate
       <section className="dashboard-content">
 
         <div className="tasks-section">
-          
+
           <div className="tasks-header-actions">
             <h2>Mis Tareas</h2>
             <EmailButton onClick={handleSendEmail} disabled={isSendingEmail} />
