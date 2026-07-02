@@ -129,7 +129,7 @@ El diseño fue desarrollado siguiendo un enfoque **Mobile First**, utilizando Fl
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/manuelahenaod/ProyectoM4_ManuelaHenaoDuque-
+git clone https://github.com/manuelahenaod/ProyectoM4_ManuelaHenaoDuque.git
 
 # 2. Ingresar al proyecto
 cd ProyectoM4
@@ -208,6 +208,10 @@ Correo recibido por el usuario
 6. AWS SES envía el correo al destinatario.
 7. El usuario recibe un resumen actualizado de sus tareas.
 
+### Vista previa del correo
+
+![Vista previa del correo](/img/email-template.png)
+
 ---
 
 ## Testing
@@ -273,4 +277,4 @@ Este enfoque permitió utilizar la IA como una herramienta de apoyo y aprendizaj
 
 **Manuela Henao Duque**
 
-Proyecto desarrollado como entrega final del Bootcamp de Desarrollo Full Stack — Henry.
+Proyecto desarrollado como entrega final del Modulo 4 del Bootcamp de Desarrollo Full Stack — Henry.
